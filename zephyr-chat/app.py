@@ -35,11 +35,11 @@ citation_markdown = f"[{citation_text}]({citation_link})"
 
 
 
-st.title("zephyr-7B-α demo")
+st.title("zephyr-7B-β demo")
 
 # Sidebar configurations
 st.sidebar.image("assets/thumbnail.png")
-st.sidebar.title("zephyr-7b-alpha API demo")
+st.sidebar.title("zephyr-7b-β API demo")
 st.sidebar.info("Configure the model parameters and endpoint from the sidebar and send your message!")
 
 # Endpoint selection
