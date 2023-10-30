@@ -1,0 +1,41 @@
+services:
+  web:
+    container_name: zephyr-chat
+    build: ./zephyr-chat/
+    ports:
+      - "8501:8501"
+    depends_on:
+      - redis
+    command: ["streamlit", "run", "app.py"]
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    networks:
+      - zephyr_network
+
+  redis:
+    container_name: redis-cache
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - zephyr_network
+
+  api:
+    container_name: zephyr-api
+    build: ./zephyr-api/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+      - "8000:8000"
+    networks:
+      - zephyr_network
+
+networks:
+  zephyr_network:
+    driver: bridge
